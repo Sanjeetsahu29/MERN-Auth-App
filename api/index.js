@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 const app  = express();
+import userRoutes from './routes/user.route.js'
 
 
 mongoose.connect(process.env.MONGO)
@@ -17,3 +18,4 @@ mongoose.connect(process.env.MONGO)
 })
 // after / you can add the name of your database explicitly and if not mentioned any name then by default database name will be test
 
+app.use('/api/user',userRoutes); 
