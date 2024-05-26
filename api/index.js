@@ -6,6 +6,7 @@ const app  = express();
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 
+
 app.use(express.json());
 mongoose.connect(process.env.MONGO)
 .then(()=>{
@@ -21,3 +22,14 @@ mongoose.connect(process.env.MONGO)
 
 app.use('/api/user',userRoutes); 
 app.use('/api/auth',authRoutes);
+
+app.use((err,req,res,next)=>{
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal server error";
+    return res.status(statusCode).json({
+        success:false,
+        statusCode:statusCode,
+        message:message
+
+    })
+})
